@@ -114,7 +114,7 @@ export const ResourceChoose: FC = () => {
                 alignItems="center"
                 css={createNewStyle}
               >
-                <AddIcon size="14px" />
+                <AddIcon size="12px" />
                 {t("editor.action.panel.option.resource.new")}
               </Space>
             </Option>
@@ -123,7 +123,7 @@ export const ResourceChoose: FC = () => {
                 <Option value={item.resourceId} key={item.resourceId}>
                   <div css={itemContainer}>
                     <span css={itemLogo}>
-                      {getIconFromResourceType(item.resourceType, "14px")}
+                      {getIconFromResourceType(item.resourceType, "12px")}
                     </span>
                     <span css={itemText}>{item.resourceName}</span>
                   </div>

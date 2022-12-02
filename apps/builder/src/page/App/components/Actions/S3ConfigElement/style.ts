@@ -69,6 +69,7 @@ export const configItemTip = css`
   font-size: 14px;
   margin-left: 192px;
   margin-bottom: 6px;
+  white-space: pre-line;
   color: ${getColor("grayBlue", "04")};
 `
 

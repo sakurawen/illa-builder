@@ -387,7 +387,7 @@
             "region": "us-west-1"
           },
           "tip": {
-            "custome_s3_endpoint_tip": "This is used to connect to other non-S3 services, like Digital Ocean Spaces or Wasabi."
+            "custome_s3_endpoint_tip": "This is used to connect to other non-S3 services, like Digital Ocean Spaces\nor Wasabi."
           }
         },
         "transformer": {

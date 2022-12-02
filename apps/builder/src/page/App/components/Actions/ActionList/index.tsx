@@ -68,7 +68,7 @@ export const ActionList: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
         onClick={() => setGeneratorVisible(true)}
       >
         <Space size="4px" direction="horizontal" alignItems="center">
-          <AddIcon size="14px" />
+          <AddIcon size="12px" />
           {t("editor.action.action_list.btn.new")}
         </Space>
       </Button>

@@ -175,7 +175,7 @@ export const PageNavBar: FC<PageNavBarProps> = (props) => {
                 leftIcon={
                   <BugIcon
                     color={globalColor(`--${illaPrefix}-grayBlue-03`)}
-                    size="14px"
+                    size="12px"
                   />
                 }
                 onClick={handleClickDebuggerIcon}
@@ -195,12 +195,12 @@ export const PageNavBar: FC<PageNavBarProps> = (props) => {
                 leftIcon={
                   isFreezeCanvas ? (
                     <LockIcon
-                      size="14px"
+                      size="12px"
                       color={globalColor(`--${illaPrefix}-techPurple-01`)}
                     />
                   ) : (
                     <UnlockIcon
-                      size="14px"
+                      size="12px"
                       color={globalColor(`--${illaPrefix}-grayBlue-03`)}
                     />
                   )
