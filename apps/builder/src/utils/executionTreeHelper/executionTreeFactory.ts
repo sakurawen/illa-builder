@@ -238,18 +238,21 @@ export class ExecutionTreeFactory {
     })
   }
 
-  updateExecutionTreeByUpdatePaths(
-    paths: string[],
-    executionTree: RawTreeShape,
-    rawTree: RawTreeShape,
+  mergeExecutionTreeByUpdatePaths(
+    updatePaths: string[],
+    newEvalTree: RawTreeShape,
+    oldEvalTree: RawTreeShape,
   ) {
-    const currentExecutionTree = cloneDeep(executionTree)
-    paths.forEach((path) => {
-      const rootPath = path.split(".").slice(0, 2).join(".")
-      const value = get(rawTree, rootPath, undefined)
-      set(currentExecutionTree, rootPath, value)
+    const newExecutionTree = cloneDeep(oldEvalTree)
+    updatePaths.forEach((path) => {
+      const newEvalTreeValue = get(newEvalTree, path)
+      if (newEvalTreeValue) {
+        set(newExecutionTree, path, newEvalTreeValue)
+      } else {
+        unset(newExecutionTree, path)
+      }
     })
-    return currentExecutionTree
+    return newExecutionTree
   }
 
   updateTree(rawTree: RawTreeShape) {
@@ -267,32 +270,24 @@ export class ExecutionTreeFactory {
       }
     }
     const updatePaths = this.getUpdatePathFromDifferences(differences)
-    let currentExecution = this.updateExecutionTreeByUpdatePaths(
-      updatePaths,
-      this.executedTree,
-      currentRawTree,
-    )
 
-    const diffExecution: Diff<RawTreeShape, RawTreeShape>[] =
-      diff(currentExecution, currentRawTree) || []
-    const executionUpdatePaths = this.getUpdatePathFromDifferences(differences)
-
-    currentExecution = this.updateExecutionTreeByUpdatePaths(
-      executionUpdatePaths,
-      currentRawTree,
-      currentExecution,
-    )
-    const newDiff = [...differences, ...diffExecution]
-    const path = this.calcSubTreeSortOrder(newDiff, currentExecution)
+    const path = this.calcSubTreeSortOrder(differences, currentRawTree)
     const { evaluatedTree, errorTree, debuggerData } = this.executeTree(
-      currentExecution,
+      currentRawTree,
       path,
     )
-    this.oldRawTree = cloneDeep(currentRawTree)
+
+    const newExecutedTree = this.mergeExecutionTreeByUpdatePaths(
+      updatePaths,
+      evaluatedTree,
+      this.executedTree,
+    )
+
     this.mergeErrorTree(errorTree, path)
     this.mergeDebugDataTree(debuggerData, path)
 
-    this.executedTree = this.validateTree(evaluatedTree)
+    this.executedTree = this.validateTree(newExecutedTree)
+    this.oldRawTree = rawTree
     return {
       dependencyTree: this.dependenciesState,
       evaluatedTree: this.executedTree,
@@ -383,7 +378,6 @@ export class ExecutionTreeFactory {
       )
       dependenciesMap = { ...dependenciesMap, ...widgetOrActionDependencies }
     })
-
     Object.keys(dependenciesMap).forEach((key) => {
       dependenciesMap[key] = flatten(
         dependenciesMap[key].map((script) => {

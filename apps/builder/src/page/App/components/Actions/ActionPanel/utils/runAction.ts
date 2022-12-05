@@ -138,9 +138,16 @@ const fetchActionResult = (
       let calcResult = runTransformer(transformer, rawData)
       resultCallback?.(calcResult, false)
       actionDisplayNameMapFetchResult[displayName] = calcResult
-      if (!isTrigger) {
-        store.dispatch(executionActions.startExecutionReducer())
-      }
+      store.dispatch(
+        executionActions.updateExecutionByMultiDisplayNameReducer([
+          {
+            displayName,
+            value: {
+              data: calcResult,
+            },
+          },
+        ]),
+      )
       successEvent.forEach((scriptObj) => {
         runEventHandler(scriptObj, BUILDER_CALC_CONTEXT)
       })

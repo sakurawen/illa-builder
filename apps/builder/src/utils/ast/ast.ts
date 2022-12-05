@@ -281,7 +281,8 @@ export const extractIdentifiersFromCode = (code: string): string[] => {
       ])
     },
   })
-
+  console.log("variableDeclarations", variableDeclarations)
+  console.log("functionalParams", functionalParams)
   // Remove declared variables and function params
   variableDeclarations.forEach((variable) => identifiers.delete(variable))
   functionalParams.forEach((param) => identifiers.delete(param))

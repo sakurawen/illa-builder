@@ -1,17 +1,10 @@
 import "@testing-library/jest-dom"
 import { render, screen } from "@testing-library/react"
-import { Text } from "../index"
+import { Text } from "../text"
 
 test("Text renders correctly", () => {
   render(<Text value="hello builder" />)
   expect(screen.getByText("hello builder")).toBeInTheDocument()
-})
-
-test("Text renders with textColor", () => {
-  render(<Text value="hello builder" textColor="purple" />)
-  expect(screen.getByText("hello builder")).toHaveStyle({
-    color: "#833fdf",
-  })
 })
 
 test("Text renders with markdown", () => {
@@ -19,16 +12,10 @@ test("Text renders with markdown", () => {
     <Text
       value="**hello builder**<https://github.com/illacloud/illa-builder>"
       disableMarkdown={true}
-      linkColor="purple"
     />,
   )
   expect(screen.getByText("hello builder")).toHaveStyle({
     "font-weight": "bold",
-  })
-  expect(
-    screen.getByText("https://github.com/illacloud/illa-builder"),
-  ).toHaveStyle({
-    color: "#833fdf",
   })
 })
 
