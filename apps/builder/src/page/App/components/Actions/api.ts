@@ -90,6 +90,12 @@ export function onDeleteActionItem(action: ActionItem<ActionContent>) {
 
 function getActionContentByType(data: FieldValues, type: ResourceType) {
   switch (type) {
+    case "firebase":
+      return {
+        databaseUrl: data.databaseUrl,
+        projectID: data.projectID,
+        privateKey: JSON.parse(data.privateKey),
+      }
     case "elasticsearch":
       return {
         host: data.host,
@@ -128,6 +134,15 @@ export function onActionConfigElementSubmit(
     resourceId != undefined ? `/resources/${resourceId}` : `/resources`
 
   return handleSubmit((data: FieldValues) => {
+    let content
+    try {
+      content = getActionContentByType(data, resourceType)
+    } catch (e) {
+      message.error({
+        content: i18n.t("editor.action.resource.db.invalid_private.key"),
+      })
+      return
+    }
     Api.request<Resource<ResourceContent>>(
       {
         method,
@@ -136,7 +151,7 @@ export function onActionConfigElementSubmit(
           ...(resourceId !== undefined && { resourceId: data.resourceId }),
           resourceName: data.resourceName,
           resourceType: resourceType,
-          content: getActionContentByType(data, resourceType),
+          content,
         },
       },
       (response) => {

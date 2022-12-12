@@ -29,15 +29,15 @@ import {
   gridValidStyle,
 } from "@/page/User/style"
 import { currentUserActions } from "@/redux/currentUser/currentUserSlice"
-import { setLocalStorage } from "@/utils/storage"
+import { getLocalStorage, setLocalStorage } from "@/utils/storage"
 import { RegisterFields, RegisterResult } from "./interface"
+import { isCloudVersion } from "@/utils/typeHelper"
+import { formatLanguage, languageKeys } from "@/i18n/config"
 
 export function getLocalLanguage(): string {
-  const lang = window.navigator.language
-  if (lang === "zh-CN" || lang === "zh") {
-    return "zh-CN"
-  }
-  return "en-US"
+  const lang = getLocalStorage("i18nextLng")
+  const finalLang = formatLanguage(lang)
+  return finalLang
 }
 
 export const Register: FC = () => {
@@ -221,7 +221,7 @@ export const Register: FC = () => {
             )}
           </div>
         </section>
-        {import.meta.env.VITE_INSTANCE_ID === "CLOUD" && (
+        {isCloudVersion && (
           <section css={gridItemStyle}>
             <label css={formLabelStyle}>
               {t("user.sign_up.fields.verification_code")}
