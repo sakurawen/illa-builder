@@ -289,6 +289,14 @@
         },
         "tips": {
           "transformer": "Enable transformers to transform the result of the query to a different format."
+        },
+        "graphql": {
+          "query": "Query",
+          "variables": "Variables",
+          "headers": "Headers",
+          "placeholder": {
+            "query": "# Use $ to add a variable into your query (e.g. $category ) \r\nquery ($owner: String!, $name: String!){\r\n  repository(owner: $owner, name: $name) \r\n}"
+          }
         }
       },
       "resource": {
@@ -324,7 +332,13 @@
             "private_key_hover": "The private key is associated with a Service Account with Firebase privileges.",
             "ssl_options": "SSL options",
             "username_password": "Username/Password",
-            "self_signed_certificate": "Use self-signed certificate"
+            "self_signed_certificate": "Use self-signed certificate",
+            "disable_introspection": "Disable Introspection",
+            "value": "Value",
+            "add_to": "Add to",
+            "header_prefix": "Header prefix",
+            "key": "Key",
+            "introspection": "Introspection"
           },
           "placeholder": {
             "certificate": "-----BEGIN CERTIFICATE-----\nMIIEMDCCApigAwIBAgIDI2GWMA0GCSqGSIb3DQEBDAUAMDoxODA2BgNVBAMML2Fm\nDTE5MDQwODAzNDIyMloXDTI5MDQwNTAzNDIyMlowOjE4MDYGA1UEAwwvYWY1ZjU4\nDTE5MDQwODAzNDIyMloXDTI5MDQwNTAzNDIyMlowOjE4MDYGA1UEAwwvYWY1ZjU4\nDTE5MDQwODAzNDIyMloXDTI5MDQwNTAzNDIyMlowOjE4MDYGA1UEAwwvYWY1ZjU4\n...\n-----END CERTIFICATE-----",
@@ -336,18 +350,21 @@
             "name": "i.e.\"Users DB(readonly)\" or \"Internal Admin API\"",
             "password": "Password",
             "private_key": "{\n  \"type\": \"service_account\",\n  \"project_id\": \"projectId\",\n  \"private_key_id\": \"privateKeyId\",\n  \"private_key\": \"-----BEGIN PRIVATE KEY-----\nprivateKey\n-----END PRIVATE KEY-----\",\n  \"client_email\": \"clientEmail\",\n  \"client_id\": \"100000000000000000000\",\n  \"auth_uri\": \"https://accounts.google.com/o/oauth2/auth\",\n  \"token_uri\": \"https://oauth2.googleapis.com/token\",\n  \"auth_provider_x509_cert_url\": \"https://www.googleapis.com/oauth2/v1/certs\",\n  \"client_x509_cert_url\": \"clientx509CertUrl\"\n}",
-            "username": "Username"
+            "username": "Username",
+            "default": "default"
           },
           "tip": {
             "connect_type": "Cloud: ILLA servers will securely connect to your database.",
             "name": "The name for resource when creating actions in the ILLA.",
             "private_key": "Click here to see how to obtain this key",
             "ssl_options": "SSL is used when available",
-            "username_password": "Credentials will be encrypted & stored securely on our servers."
+            "username_password": "Credentials will be encrypted & stored securely on our servers.",
+            "introspection": "Turn on this if your GraphQL endpoint does not support introspection queries. Note that disabling introspection reduces the usability of GraphQL, as auto-complete and linting for this resource will no longer work."
           },
           "title": {
             "advanced_option": "Advanced Options",
-            "general_option": "GENERAL"
+            "general_option": "GENERAL",
+            "graphql_introspection": "GRAPHQL INTROSPECTION"
           }
         },
         "error": {
@@ -812,7 +829,9 @@
         "show_fold_icon": "Show fold icon",
         "view_path": "View path",
         "views": "Views",
-        "width": "Width"
+        "width": "Width",
+        "height": "Height",
+        "columns": "Columns"
       },
       "model_tips": {
         "cancel_button": "Cancel",
@@ -827,7 +846,8 @@
       "tab_title": "Page",
       "tooltips": {
         "show_fold_icon": "Show a button to collapse or expand the panel",
-        "view_path": "A string after example.com/app/page/ to access this view"
+        "view_path": "A string after example.com/app/page/ to access this view",
+        "auto_canvas_width": "The width of page as a percentage of the browser width."
       }
     },
     "validate_message": {
@@ -863,7 +883,14 @@
   "link_copied": "Link Copied",
   "network_error": "Network disconnected. Please check this device's network",
   "not_online_tips": "Network disconnected. Please check this device's network",
-  "preview": "Preview",
+  "preview": {
+    "viewport": {
+      "size": "Size",
+      "reset": "Reset",
+      "save": "Save"
+    },
+    "button_text": "Preview"
+  },
   "remove_fail": "Failed to remove",
   "rename": "Rename",
   "resources": "Resources",
@@ -1145,5 +1172,16 @@
       "name": "Timeline",
       "vertical": "vertical"
     }
+  },
+  "page": {
+    "size": {
+      "model": {
+        "fixed": "Fixed",
+        "auto": "Auto"
+      }
+    }
+  },
+  "frame_size": {
+    "invalid_tips": "Please enter a value not less than {{ size }}."
   }
 }
